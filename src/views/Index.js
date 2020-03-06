@@ -27,10 +27,10 @@ class Index extends Component{
     
     componentDidMount() {
         
-
-        setTimeout(() => {
-            this.setState({isLoading: false})
-          }, 1200);
+        this.setState({isLoading: false})
+        // setTimeout(() => {
+        //     this.setState({isLoading: false})
+        //   }, 1200);
     }
 
     render(){

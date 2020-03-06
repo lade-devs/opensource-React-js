@@ -1,11 +1,63 @@
-import React from "react";
+import React,{Component} from "react";
 import {Link} from "react-router-dom";
 import OwlCarousel from 'react-owl-carousel';
 
 
+const stats = ({ stats }) => {
+    return (
+      <div>
+        <center><h1>Contact List</h1></center>
+        {stats.data.map((stat) => (
+          <ul className="list-inline"> 
+          <li>Ongoing Projects <hr/> <p>1</p> </li>
+          <li>Completed Projects <hr/> <p>1</p> </li>
+          <li>Collaborators <hr/> <p>2</p>  </li>
+          <li>Scripts <hr/> <p>1</p>  </li>
 
+      </ul>
+        ))}
+      </div>
+    )
+  };
+  
 
-function stat_section(){
+class stat_section extends Component{
+    constructor(props){
+    super(props);
+    this.state = {
+        fetchApi:  {
+            success: '1',
+            data: [{
+                ongoing_project:'',
+                completed_project: '',
+                script: '',
+                collaborator: '',
+                collaborators_detail:''
+            }],
+            message: '1',
+        }
+    }
+}
+
+    componentDidMount() {
+        this.fetchData();
+      }
+
+      fetchData(){
+        
+      fetch('http://opensource.kodedict.com/',
+      {
+          method: 'GET'
+      }).then((response)=> response.json()).then((responseJson)=>{
+          this.setState({
+            fetchApi: responseJson
+          })
+      })
+    }
+      
+
+    render(){
+       
     return(
 
     <div idName="stat">
@@ -16,13 +68,21 @@ function stat_section(){
             <div className="col-md-4">
                 <h2>Stats</h2>
                     <div className="stat_box">
-                        <ul className="list-inline">
-                            <li>Ongoing Projects <hr/> <p>1</p> </li>
+                        
+                        {/* {this.state.fetchApi.data.map((stat,index)=>{
+                        return(
+                            <ul className="list-inline"> 
+                            <li>Ongoing Projects <hr/> <p>{stat.ongoing_project}</p> </li>
                             <li>Completed Projects <hr/> <p>1</p> </li>
                             <li>Collaborators <hr/> <p>2</p>  </li>
                             <li>Scripts <hr/> <p>1</p>  </li>
+                  
                         </ul>
+                        )})} */}
+                        {this.state.fetchApi.message}
+                        ok
                     </div>
+                    
             </div>
             <div className="col-md-8 d-flex flex-column  justify-content-center align-items-center ctr_box">
                 <h3 style={{left: "39%",marginLeft: "-100px"}}>Recent Collaborators</h3>
@@ -66,6 +126,7 @@ function stat_section(){
     </div>
 </div>
 );
+    }
 }
 
 export default stat_section;
