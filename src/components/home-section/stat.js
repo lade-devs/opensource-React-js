@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import {Link} from "react-router-dom";
 import OwlCarousel from 'react-owl-carousel';
+import axios from 'axios';
 
 
 const stats = ({ stats }) => {
@@ -22,45 +23,54 @@ const stats = ({ stats }) => {
   
 
 class stat_section extends Component{
-    constructor(props){
-    super(props);
-    this.state = {
-        fetchApi:  {
-            success: '1',
-            data: [{
-                ongoing_project:'',
-                completed_project: '',
-                script: '',
-                collaborator: '',
-                collaborators_detail:''
-            }],
-            message: '1',
-        }
-    }
-}
+//     constructor(props){
+//     super(props);
+//     this.state = {
+//         // fetchApi:  [{
+//         //     success: true,
+//         //     data: [
+//         //         {
+//         //             ongoing_project: 2,
+//         //             completed_project: 0,
+//         //             script: 2,
+//         //             collaborator: 1,
+//         //             collaborators_detail: [
+//         //                 {
+//         //                     collaborators_name: "Olumayokun Olayinka",
+//         //                     collaborators_title: "Full Stack Developer",
+//         //                     github: "kodedict",
+//         //                     linkedin: "olayinka-olumayokun"
+//         //                 }
+//         //             ]
+//         //         }
+//         //     ],
+//         //     message: "Stats Fetched"
+//         // }]
+//         fetchApi:[]
+//     }
+// }
 
-    componentDidMount() {
-        this.fetchData();
-      }
+state = {
+    fetchApi:[]
+  }
 
-      fetchData(){
-        
-      fetch('https://kodedict.com/api/fetchStat',
-      {
-          method: 'GET'
-      }).then((response)=> response.json()).then((responseJson)=>{
-          this.setState({
-            fetchApi: responseJson
-          })
+
+
+componentDidMount() {
+    axios.get(`/api/fetchStat`)
+      .then(res => {
+        const fetchApi = res.data;
+        this.setState({ fetchApi });
       })
-    }
+  }
       
 
     render(){
-       
+        // const stat_view = this.state.fetchApi.map(v => {});
+        
     return(
 
-    <div idName="stat">
+    <div>
     <div className="container stat">
         
         <div className="row">
@@ -69,18 +79,11 @@ class stat_section extends Component{
                 <h2>Stats</h2>
                     <div className="stat_box">
                         
-                        {/* {this.state.fetchApi.data.map((stat,index)=>{
-                        return(
-                            <ul className="list-inline"> 
-                            <li>Ongoing Projects <hr/> <p>{stat.ongoing_project}</p> </li>
-                            <li>Completed Projects <hr/> <p>1</p> </li>
-                            <li>Collaborators <hr/> <p>2</p>  </li>
-                            <li>Scripts <hr/> <p>1</p>  </li>
-                  
-                        </ul>
-                        )})} */}
-                        {this.state.fetchApi.message}
-                        ok
+    {this.state.fetchApi.data.map((v,i)=>(
+        <p></p>
+    ))}
+                        
+                        
                     </div>
                     
             </div>
@@ -130,3 +133,4 @@ class stat_section extends Component{
 }
 
 export default stat_section;
+
