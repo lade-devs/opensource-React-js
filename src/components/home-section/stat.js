@@ -45,7 +45,7 @@ class stat_section extends Component{
 
       fetchData(){
         
-      fetch('http://opensource.kodedict.com/',
+      fetch('https://kodedict.com/api/fetchStat',
       {
           method: 'GET'
       }).then((response)=> response.json()).then((responseJson)=>{
