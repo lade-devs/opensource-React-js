@@ -8,8 +8,8 @@ import "./assets/css/responsive.css";
 
 // pages
 import Home from "./views/Index";
-import Project from "./views/project";
-import SingleProject from "./views/single-project"; 
+// import Project from "./views/project";
+// import SingleProject from "./views/single-project"; 
 import NotFound from "./views/404";
 
 
@@ -31,8 +31,8 @@ class App extends Component {
             <ScrollTop/>
             <Switch>
             <Route exact path={"/"} component={Home} />
-            <Route exact path={"/project-and-script"} component={Project} />
-            <Route exact path={"/projects"} component={SingleProject} />
+            {/* <Route exact path={"/project-and-script"} component={Project} /> */}
+            {/* <Route exact path={"/projects"} component={SingleProject} /> */}
             <Route path="*" component={NotFound} />
             </Switch>
         </Router>
