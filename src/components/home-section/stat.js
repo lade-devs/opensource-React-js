@@ -51,17 +51,18 @@ class stat_section extends Component{
 // }
 
 state = {
-    fetchApi:[]
+    fetchApi: null
   }
 
 
 
 componentDidMount() {
-    axios.get(`/api/fetchStat`)
+    axios.get('/api/fetchStat')
       .then(res => {
         const fetchApi = res.data;
         this.setState({ fetchApi });
       })
+      .catch(error=> console.log('Error happened'));
   }
       
 
@@ -79,10 +80,18 @@ componentDidMount() {
                 <h2>Stats</h2>
                     <div className="stat_box">
                         
-    {this.state.fetchApi.data.map((v,i)=>(
-        <p></p>
-    ))}
-                        
+                    { this.state.fetchApi ? this.state.fetchApi.data.map((v, i) => {
+                         return v.collaborators_detail.map( person => (
+                           <>
+                              <p>{person.collaborators_name}</p>
+                              <p>{person.collaborators_title}</p>
+                              <p>{person.github}</p>
+                              <p>{person.linkedin}</p>
+                           </>
+                         )   
+                        )
+                        }) : null
+                    }
                         
                     </div>
                     
