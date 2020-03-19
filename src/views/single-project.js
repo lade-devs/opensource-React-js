@@ -1,6 +1,8 @@
 import React,{Component} from "react";
 import { Helmet } from 'react-helmet';
 import Loader from 'react-loader-spinner';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 //core components
 import Header from "../components/header";
@@ -13,23 +15,50 @@ import RelatedProduct from "../components/product-section/related_product";
 //Scroll Top
 import ScrollTop from "../components/ScrollToTop";
 
-const PAGETITLE = 'Single Project';
+
 
 
 
 class single_main extends Component{
     constructor(props) {
         super(props);
-        this.state = { isLoading: true }
+        this.state = { 
+        
+        isLoading: true,
+        fetchApi: null
+        }
     }
+
+    fetchData(){
+        axios.post('/api/fetchSingleBeauty/'+this.props.match.params.id).then(res => {
+            const fetchApi = res.data;
+            this.setState({ fetchApi });
+          })
+          .catch(error=> console.log('Error happened'));
+    }
+
     
     componentDidMount() {
+
+       
+        this._asyncRequest = axios.post('/api/fetchSingleBeauty/'+this.props.match.params.id).then(res => {
+            const fetchApi = res.data;
+            this._asyncRequest = null;
+            this.setState({ fetchApi });
+          })
+          .catch(error=> console.log('Error happened'));;
         
 
         setTimeout(() => {
             this.setState({isLoading: false})
           }, 1200);
     }
+    componentWillUnmount() {
+        if (this._asyncRequest) {
+          this._asyncRequest.cancel();
+        }
+      }
+
     render(){
     return(
         <>
@@ -49,16 +78,30 @@ class single_main extends Component{
         </div>
         
         ) : (
+
+            this.state.fetchApi ?    
         <div>
         <Helmet>
-                <title>{ PAGETITLE }</title>
+                <title>{ this.props.match.params.id }</title>
         </Helmet>
         <Header/>
-        <MainContent/>
-        <RelatedProduct/>
+        <MainContent fetch={this.state.fetchApi} />
+        <RelatedProduct fetch={this.state.fetchApi} isLoading={this.state.isLoading} />
         <Footer/>
         <ScrollTop/>
         </div>
+
+            : (
+                <div>
+                <Helmet>
+                <title>Page Not Found</title>
+                </Helmet>
+                
+                Not found
+                <center><Link to="/">Return to Home Page</Link></center>
+                </div>
+            )
+
         )}
         </>
     );

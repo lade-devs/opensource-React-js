@@ -1,10 +1,26 @@
 
-import React from "react";
+import React,{Component} from "react";
 import OwlCarousel from 'react-owl-carousel';
+import axios from 'axios';
 
 
-function lang_section(){
+class lang_section extends Component{
 
+    state = {
+        fetchApi: null
+      }
+
+      componentDidMount() {
+        axios.get('/api/fetchLang')
+          .then(res => {
+            const fetchApi = res.data;
+            this.setState({ fetchApi });
+          })
+          .catch(error=> console.log('Error happened'));
+      }
+        
+
+    render(){
     return(
     <div className="lang">
     <div className="container">
@@ -14,9 +30,12 @@ function lang_section(){
             </div>
             <div className="col-10">
                 <div className="row">
+
+                { this.state.fetchApi ? this.state.fetchApi.data.length && (
+
                 <OwlCarousel
     className="lang_slider text-center"
-    loop
+    rewind = {true}
     responsive={
         {
             0: {
@@ -33,15 +52,14 @@ function lang_section(){
     autoplay={true}
     autoplayTimeout={8000}
 >
-                        <div className="col-md-12">Python</div>
-                        <div className="col-md-12">React Js</div>
-                        <div className="col-md-12">React Native</div>
-                        <div className="col-md-12">Django</div>
-                        <div className="col-md-12">Klotin</div>
-                        <div className="col-md-12">Xml</div>
-                        <div class="col-md-12">Java</div>
+                        {this.state.fetchApi.data.map((v,i)=>(
+                            
+                                <div key={i} className="col-md-12">{v.lang}</div>
+                            
+                        ))}
                    
                     </OwlCarousel>
+            ) : (<p>Failed to get Lang</p>) }
                 </div>
                 
             </div>
@@ -50,7 +68,7 @@ function lang_section(){
 </div>
 );
 }
-
+}
 
 
 export default lang_section;

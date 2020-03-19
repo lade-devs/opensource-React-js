@@ -275,7 +275,7 @@ body{font-family: 'Roboto Slab' ;}
     font-weight: lighter;
     color: rgba(5,0,16,0.71);
 }
-.case_study h2{
+.case_study h2 a{
     font-size: 25px;
     color: #050010; 
     font-weight: bold;

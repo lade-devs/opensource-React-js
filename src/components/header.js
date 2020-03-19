@@ -12,6 +12,7 @@ import {
 } from 'reactstrap';
 
 import AnchorLink from 'react-anchor-link-smooth-scroll';
+
 class Header_Navbar extends Component{
    
     constructor() {
@@ -85,13 +86,13 @@ class Header_Navbar extends Component{
                   <Collapse isOpen={this.state.collapseOpen} navbar>
                   <Nav className="mr-auto" navbar>
                     <NavItem>
-                        <NavLink><Link to="/" style={{color:"#FAF9FC"}}>Home</Link></NavLink>
+                        <Link className="nav-link active" to="/" style={{color:"#FAF9FC"}}>Home</Link>
                     </NavItem>
                     <NavItem>
-                    <NavLink><Link to="/project-and-script" style={{color:"#FAF9FC"}}>Projects and Scripts</Link></NavLink>
+                    <Link className="nav-link" to="/project-and-script" style={{color:"#FAF9FC"}}>Projects and Scripts</Link>
                     </NavItem>
                     <NavItem>
-                    <NavLink><AnchorLink href="#collaborate" style={{color:"#FAF9FC"}}>Collaborate</AnchorLink></NavLink>
+                    <AnchorLink className="nav-link" href="#collaborate" style={{color:"#FAF9FC"}}>Collaborate</AnchorLink>
                     </NavItem>
                     </Nav>
 

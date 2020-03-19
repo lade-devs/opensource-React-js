@@ -1,6 +1,5 @@
 
 import React from "react";
-import {Link} from "react-router-dom";
 
 function footer_bottom(){
     return(
@@ -12,7 +11,7 @@ function footer_bottom(){
                     <img src={require("../../assets/img/logo_main.svg")} className="img-fluid" alt="KodeDict Logo" width="80"/>
                     <div style={{marginTop: "30px"}}></div>
                     <p style={{fontSize: "15px"}} className="text-center">
-                        An initiative and development by&nbsp;<Link href="" style={{color: "#006CFF",fontWeight: "500"}}>KodeDict</Link><br/>© 2020.</p>
+                        An initiative and development by&nbsp;<a href="/" style={{color: "#006CFF",fontWeight: "500"}}>KodeDict</a><br/>© 2020.</p>
                 </div>
             </div>
         </div>

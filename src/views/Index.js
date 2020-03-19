@@ -6,6 +6,7 @@ import Loader from 'react-loader-spinner';
 import Header from "../components/header";
 import Footer from "../components/footer";
 
+
 //section
 import HeaderSection from "../components/home-section/header";
 import AboutSection from "../components/home-section/about";
@@ -27,10 +28,9 @@ class Index extends Component{
     
     componentDidMount() {
         
-        this.setState({isLoading: false})
-        // setTimeout(() => {
-        //     this.setState({isLoading: false})
-        //   }, 1200);
+        setTimeout(() => {
+            this.setState({isLoading: false})
+          }, 1200);
     }
 
     render(){

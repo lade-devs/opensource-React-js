@@ -1,7 +1,24 @@
 import React,{Component} from "react";
 import {Link} from "react-router-dom";
+import axios from 'axios';
 
 class  MainContent extends Component{
+
+    state = {
+        fetchApi: null
+      }
+    
+    
+    
+      componentDidMount() {
+        axios.get('/api/fetchBeauty')
+          .then(res => {
+            const fetchApi = res.data;
+            this.setState({ fetchApi });
+          })
+          .catch(error=> console.log('Error happened'));
+      }
+
     render(){
         return(
 
@@ -13,79 +30,47 @@ class  MainContent extends Component{
                     </div>
                 </div>
                 <div className="row">
+
                     <div className="col-md-12">
                         <div className="row">
-                            <div className="col-lg-3">
+                        { this.state.fetchApi ? this.state.fetchApi.data.map((v, i) => {
+
+                            return(
+                            <div key={i} className="col-lg-3">
                                 <div className="inner_beauty">
                                     <div className="beauty_item">
                                         <ul className="list-inline">
-                                            <li className="list-inline-item RA">Rest APi</li>
-                                            <li className="list-inline-item RN">React Native</li> 
+                                        {v.lang === 'yes'? (
+                                 v.project_tag.map((i,v)=>(
+                                    <li key={v} className="list-inline-item JAVA">{i.lang}</li>
+                                ))
+                             ) : (
+                                <li className="list-inline-item JAVA">{v.project_tag}</li>
+                             ) }
                                         </ul>
                                             <p style={{marginTop: "100px"}}></p>
-                                            <h3 className="text-center">Project</h3>
-                                            <h2 className="text-center">Ticket Booking</h2>
+                                            <h3 className="text-center text-capitalize">{v.project_type}</h3>
+                                            <h2 className="text-center">{v.project_title}</h2>
                                             <p style={{marginTop: "50px"}}></p>
                                             <p className="text-center">
-                                                <Link to="/projects">Read more <i className="fa fa-arrow-right"></i></Link>
+                                                {v.project_type === 'project' ? (
+                                                    <Link to={"/project/"+v.project_slug}>Read more <i className="fa fa-arrow-right"></i></Link>
+                                                ) : (
+                                                    <Link to={"/script/"+v.project_slug}>Read more <i className="fa fa-arrow-right"></i></Link>
+                                                )}
                                             </p>
                                             <p style={{marginTop: "50px"}}></p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-3">
-                                <div className="inner_beauty">
-                                    <div className="beauty_item">
-                                        <ul className="list-inline">
-                                            <li className="list-inline-item LARAVEL">Laravel</li>
-                                        </ul>
-                                            <p style={{marginTop: "100px"}}></p>
-                                            <h3 className="text-center">Script</h3>
-                                            <h2 className="text-center">Shopping Cart</h2>
-                                            <p style={{marginTop: "50px"}}></p>
-                                            <p className="text-center">
-                                            <Link to="/projects">Read more <i className="fa fa-arrow-right"></i></Link>
-                                            </p>
-                                            <p style={{marginTop: "50px"}}></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-3">
-                                <div className="inner_beauty">
-                                    <div className="beauty_item">
-                                        <ul className="list-inline">
-                                            <li className="list-inline-item JAVA">Java</li>
-                                        </ul>
-                                            <p style={{marginTop: "100px"}}></p>
-                                            <h3 className="text-center">Project</h3>
-                                            <h2 className="text-center">POS System</h2>
-                                            <p style={{marginTop: "50px"}}></p>
-                                            <p className="text-center">
-                                            <Link to="/projects">Read more <i className="fa fa-arrow-right"></i></Link>
-                                            </p>
-                                            <p style={{marginTop: "50px"}}></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-lg-3">
-                                <div className="inner_beauty">
-                                    <div className="beauty_item">
-                                        <ul className="list-inline">
-                                            <li className="list-inline-item LARAVEL">Laravel</li>
-                                        </ul>
-                                            <p style={{marginTop: "100px"}}></p>
-                                            <h3 className="text-center">Script</h3>
-                                            <h2 className="text-center">User Auth</h2>
-                                            <p style={{marginTop: "50px"}}></p>
-                                            <p className="text-center">
-                                            <Link to="/projects">Read more <i className="fa fa-arrow-right"></i></Link>
-                                            </p>
-                                            <p style={{marginTop: "50px"}}></p>
-                                    </div>
-                                </div>
-                            </div>
+                            )
+
+                        }) : (<p>Failed to get Lang</p>)
+                    }
+
                         </div>
                     </div>
+
                 </div>
             
             </div>

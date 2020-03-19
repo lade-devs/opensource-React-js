@@ -1,6 +1,5 @@
 
 import React from "react";
-import {Link} from "react-router-dom";
 
 function footer_middle(){
     return(
@@ -12,10 +11,10 @@ function footer_middle(){
               <img src={require("../../assets/img/logo.png")} className="img-fluid" alt="Opensource Logo" width="85"/>
               <div style={{marginTop: "15px"}}></div>
               <ul className="list-inline">
-                  <li className="list-inline-item"><Link href=""><i className="fab fa-facebook"></i></Link></li>
-                  <li className="list-inline-item"><Link href=""><i className="fab fa-linkedin"></i></Link></li>
-                  <li className="list-inline-item"><Link href=""><i className="fab fa-github"></i></Link></li>
-                  <li className="list-inline-item"><Link href=""><i className="fab fa-instagram"></i></Link></li>
+                  <li className="list-inline-item"><a href="/"><i className="fab fa-facebook"></i></a></li>
+                  <li className="list-inline-item"><a href="/"><i className="fab fa-linkedin"></i></a></li>
+                  <li className="list-inline-item"><a href="/"><i className="fab fa-github"></i></a></li>
+                  <li className="list-inline-item"><a href="/"><i className="fab fa-instagram"></i></a></li>
               </ul>
           </div>
       </div>

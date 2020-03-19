@@ -1,7 +1,7 @@
 {
   "name": "opensource",
   "version": "0.1.0",
-  "proxy": "https://kodedict.com",
+  "proxy": "http://127.0.0.1:5000",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -17,6 +17,7 @@
     "react-loader-spinner": "^3.1.5",
     "react-owl-carousel": "^2.3.1",
     "react-router-dom": "^5.1.2",
+    "react-script-tag": "^1.1.2",
     "react-scripts": "3.4.0",
     "reactstrap": "^8.4.1"
   },

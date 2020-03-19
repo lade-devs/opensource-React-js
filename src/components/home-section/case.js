@@ -1,11 +1,25 @@
 
-import React from "react";
-import {Link} from "react-router-dom";
+import React,{Component} from "react";
 import OwlCarousel from 'react-owl-carousel';
+import axios from 'axios';
 
-
-function case_section(){
-
+class case_section extends Component{
+    state = {
+        fetchApi: null
+      }
+    
+    
+    
+      componentDidMount() {
+        axios.get('/api/fetchCase')
+          .then(res => {
+            const fetchApi = res.data;
+            this.setState({ fetchApi });
+          })
+          .catch(error=> console.log('Error happened'));
+      }
+    
+    render(){  
     return(
         
     <div>
@@ -19,10 +33,10 @@ function case_section(){
         <div className="row">
             <div className="col-md-12">
                 <div className="row">
-
+                { this.state.fetchApi ? this.state.fetchApi.data.length && (
                 <OwlCarousel
     className="case_study_slider"
-    loop
+    rewind = {true}
     autoplayHoverPause={true}
     responsive={
         {
@@ -41,24 +55,17 @@ function case_section(){
     autoplayTimeout={4000}
 >
 
-                    <div className="col-md-12">
-                        <h3 className="text-center">January 19, 2020 </h3>
-                        <h2 className="text-center">Ticket booking: reservation built with React Native and Rest Api</h2>
+                    {this.state.fetchApi.data.map((i,v)=>(
+                        <div key={v} className="col-md-12">
+                        <h3 className="text-center">{i.post_date}</h3>
+                    <h2 className="text-center"><a target="_blanck" href={i.post_link}>{i.post_title}</a></h2>
                     </div>
-                    <div className="col-md-12">
-                        <h3 className="text-center">January 19, 2020 </h3>
-                        <h2 className="text-center">Ticket booking: reservation built with React Native and Rest Api</h2>
-                    </div>
-                    <div className="col-md-12">
-                        <h3 className="text-center">January 19, 2020 </h3>
-                        <h2 className="text-center">Ticket booking: reservation built with React Native and Rest Api</h2>
-                    </div>
-                    <div className="col-md-12">
-                        <h3 className="text-center">January 19, 2020 </h3>
-                        <h2 className="text-center">Ticket booking: reservation built with React Native and Rest Api</h2>
-                    </div>
+                    ))}
 
 </OwlCarousel>
+
+) : (<p>Failed to get Case study</p>)
+                    }
 
                 </div>
             </div>
@@ -67,6 +74,7 @@ function case_section(){
 </div>
 
 );
+}
 }
 
 export default case_section;

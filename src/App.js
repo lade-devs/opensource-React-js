@@ -6,6 +6,7 @@ import "./assets/css/bootstrap.min.css";
 import "./assets/css/styles.css";
 import "./assets/css/responsive.css";
 
+
 // pages
 import Home from "./views/Index";
 import Project from "./views/project";
@@ -22,22 +23,22 @@ import ScrollTop from "./components/router_top";
 
 class App extends Component {
 
-
-
       render() {
         return (
+          <>
           <div className="App">
             <Router>
             <ScrollTop/>
             <Switch>
             <Route exact path={"/"} component={Home} />
-            <Route exact path={"/project-and-script"} component={Project} />
-            <Route exact path={"/projects"} component={SingleProject} />
-            <Route path="*" component={NotFound} />
+            <Route  path={"/project-and-script"} component={Project} />
+            <Route  path={"/project/:id"} component={SingleProject} />
+            <Route  path={"/script/:id"} component={SingleProject} />
+            <Route component={NotFound} />
             </Switch>
         </Router>
         </div>
-        
+        </>
           );
       }
     }
